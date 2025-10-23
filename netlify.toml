@@ -1,5 +1,5 @@
 [build]
-  publish = "dist/pomodoro01"
+  publish = "dist/pomodoro-app/browser"
   command = "ng build --configuration production"
 
 [build.environment]
