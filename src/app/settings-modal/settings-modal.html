@@ -1,0 +1,82 @@
+<div class="modal-overlay" (click)="onCancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>⚙️ Configurar Tiempos</h2>
+      <button class="close-btn" (click)="onCancel()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="setting-group">
+        <label for="work-time">🍅 Tiempo de Trabajo</label>
+        <div class="input-group">
+          <input 
+            id="work-time" 
+            type="number" 
+            min="1" 
+            max="60"
+            [ngModel]="workMinutes()"
+            (ngModelChange)="workMinutes.set($event)"
+          />
+          <span class="unit">minutos</span>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label for="short-break">☕ Descanso Corto</label>
+        <div class="input-group">
+          <input 
+            id="short-break" 
+            type="number" 
+            min="1" 
+            max="30"
+            [ngModel]="shortBreakMinutes()"
+            (ngModelChange)="shortBreakMinutes.set($event)"
+          />
+          <span class="unit">minutos</span>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label for="long-break">🏖️ Descanso Largo</label>
+        <div class="input-group">
+          <input 
+            id="long-break" 
+            type="number" 
+            min="1" 
+            max="60"
+            [ngModel]="longBreakMinutes()"
+            (ngModelChange)="longBreakMinutes.set($event)"
+          />
+          <span class="unit">minutos</span>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label for="daily-goal">🎯 Meta Diaria</label>
+        <div class="input-group">
+          <input 
+            id="daily-goal" 
+            type="number" 
+            min="1" 
+            max="20"
+            [ngModel]="dailyGoal()"
+            (ngModelChange)="dailyGoal.set($event)"
+          />
+          <span class="unit">sesiones</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="onReset()">
+        Restablecer
+      </button>
+      <button class="btn btn-outline" (click)="onCancel()">
+        Cancelar
+      </button>
+      <button class="btn btn-primary" (click)="onSave()">
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="pomodoro-container">
+  <!-- Header con información del modo actual -->
+  <div class="mode-header">
+    <h1 class="mode-title" [style.color]="modeColor">{{ modeText }}</h1>
+    <div class="session-counter">
+      Sesión {{ currentState().sessionsCompleted + 1 }} de {{ currentState().dailyGoal }}
+    </div>
+    <button class="settings-btn" (click)="openSettings()" title="Configuración">
+      <span class="settings-icon">⚙️</span>
+    </button>
+  </div>
+
+  <!-- Anillos de progreso estilo Apple Watch -->
+  <div class="rings-section">
+    <app-progress-rings 
+      [sessionProgress]="progress()"
+      [dailyProgress]="dailyProgress()"
+      [weeklyProgress]="weeklyProgress()"
+    />
+  </div>
+
+  <!-- Timer display independiente -->
+  <div class="timer-display">
+    <div class="time" [style.color]="modeColor">{{ formattedTime() }}</div>
+    <div class="mode-label">{{ modeText }}</div>
+  </div>
+
+  <!-- Controles del temporizador -->
+  <div class="controls">
+    @if (!currentState().isRunning) {
+      <button 
+        class="btn btn-primary" 
+        (click)="onStart()"
+        [style.background]="'linear-gradient(135deg, ' + modeColor + ', #8338ec)'"
+      >
+        <span class="btn-icon">▶</span>
+        Iniciar
+      </button>
+    } @else {
+      <button 
+        class="btn btn-secondary" 
+        (click)="onPause()"
+      >
+        <span class="btn-icon">⏸</span>
+        Pausar
+      </button>
+    }
+    
+    <button 
+      class="btn btn-outline" 
+      (click)="onReset()"
+    >
+      <span class="btn-icon">↻</span>
+      Reiniciar
+    </button>
+    
+    <button 
+      class="btn btn-outline" 
+      (click)="onSkip()"
+    >
+      <span class="btn-icon">⏭</span>
+      Saltar
+    </button>
+  </div>
+
+  <!-- Información adicional -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-value">{{ currentState().sessionsCompleted }}</div>
+      <div class="stat-label">Completadas hoy</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">{{ currentState().dailyGoal - currentState().sessionsCompleted }}</div>
+      <div class="stat-label">Restantes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">{{ (dailyProgress() | number:'1.0-0') }}%</div>
+      <div class="stat-label">Meta diaria</div>
+    </div>
+  </div>
+
+  <!-- Modal de configuración -->
+  @if (showSettings()) {
+    <app-settings-modal
+      (close)="closeSettings()"
+      (settingsSaved)="onSettingsSaved($event)"
+    />
+  }
+</div>

@@ -1,0 +1,60 @@
+.rings-container {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-rings {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.ring-background {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-linecap: round;
+}
+
+.ring-progress {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.5s ease-in-out;
+  filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 3px rgba(255, 255, 255, 0.1));
+  opacity: 0.95;
+}
+
+/* Estilos removidos - la información central se maneja desde el componente padre */
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .rings-container {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rings-container {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Animación de pulso para anillos activos */
+.ring-progress {
+  animation: ringGlow 3s ease-in-out infinite;
+}
+
+@keyframes ringGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px currentColor) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  }
+}

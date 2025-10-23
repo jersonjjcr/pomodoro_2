@@ -1,0 +1,30 @@
+<div class="rings-container">
+  <svg class="progress-rings" viewBox="0 0 260 260">
+    <!-- Anillos de fondo -->
+    @for (ring of rings; track ring.label) {
+      <circle 
+        cx="130"
+        cy="130"
+        [attr.r]="ring.radius"
+        class="ring-background"
+        [style.stroke-width]="ring.strokeWidth + 'px'"
+      />
+    }
+    
+    <!-- Anillos de progreso -->
+    @for (ring of rings; track ring.label) {
+      <circle 
+        cx="130"
+        cy="130"
+        [attr.r]="ring.radius"
+        class="ring-progress"
+        [style.stroke]="ring.color"
+        [style.stroke-width]="ring.strokeWidth + 'px'"
+        [style.stroke-dasharray]="getDashArray(ring.radius, ring.progress())"
+        transform="rotate(-90 130 130)"
+      />
+    }
+  </svg>
+  
+  <!-- Los valores centrales se manejan desde el componente padre -->
+</div>
